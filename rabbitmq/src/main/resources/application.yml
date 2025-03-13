@@ -1,0 +1,38 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: rabbitmq-ms
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    template:
+      retry:
+        enabled: true
+        initial-interval: 2s
+        max-attempts: 3
+        multiplier: 2
+        max-interval: 10s
+      exchange-auto-delete: true
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 2s
+
+rabbit:
+  queue:
+    name: sample.mb.rabmq.quetie
+    exchange: sample.mb.rabmq.palitan
+    routing-key: sample.mb.rabmq.evt.routing.json.v01.-1
+    dead-letter-exchange: training-sample-dead-letter-exchange
+    dead-letter-routing-key: training-sample-dead-letter-routing-key
+    dead-letter-queue: training-sample-dead-letter-queue
+    ttl: 60000
+    max-length: 1000
+    max-length-bytes: 1000000
+    overflow: reject-publish
+    message-ttl: 60000
+    expires: 60000
